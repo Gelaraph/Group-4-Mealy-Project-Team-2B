@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { FaCaretDown } from "react-icons/fa";
 import { useCart } from "react-use-cart";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import location from "../../assets/images/locationVector.png";
 import "./navbarLocation.css";
 import LocationModal from "./LocationModal";
@@ -20,13 +19,6 @@ const AuthNavbar = () => {
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [isnotificationModalOpen, setIsNotificationModalOpen] = useState(false);
   const { totalItems } = useCart();
-
-  const handleCartClick = () => {
-    setIsCartModalOpen(!isCartModalOpen);
-  };
-  const handleNotifcationClick = () => {
-    setIsNotificationModalOpen(!isnotificationModalOpen);
-  };
 
   const handleInputClick = () => {
     setIsLocationModalOpen(!isLocationModalOpen);

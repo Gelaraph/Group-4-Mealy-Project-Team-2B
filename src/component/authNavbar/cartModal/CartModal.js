@@ -57,7 +57,7 @@ const CartModal = ({ open, onClose }) => {
               ))}
             </div>
 
-            <div>
+            <div className="cartmodal-btn-div">
               <a href="/checkout">
                 <button type="button" className="cart-checkout-btn">
                   Checkout
@@ -129,7 +129,16 @@ const Wrapper = styled.div`
     line-height: 29px;
     border-radius: 3px;
     padding: 0.3em;
-    width: 70%;
+    width: 100%;
+  }
+  .cartmodal-btn-div {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+    a {
+      width: 100%;
+    }
   }
 `;
 
