@@ -22,6 +22,7 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [addressEditing, setIsAddressEditing] = useState(false);
   const [country, setCountry] = useState("");
@@ -164,6 +165,7 @@ const Profile = () => {
         setCityState(profileData.data.cityAndState);
         setStreet(profileData.data.numberAndStreet);
         setPostalCode(profileData.data.postalCode);
+        setEmail(profileData.data.email);
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
@@ -253,9 +255,7 @@ const Profile = () => {
 
                 <div>
                   <p>Email address</p>
-                  <h4 className={isEditing ? "greyed-out" : ""}>
-                    amarachuckwu@gmail.com
-                  </h4>
+                  <h4 className={isEditing ? "greyed-out" : ""}>{email}</h4>
                 </div>
               </div>
 
