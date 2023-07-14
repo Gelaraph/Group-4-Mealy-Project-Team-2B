@@ -36,8 +36,6 @@ const Profile = () => {
 
   const token = localStorage.getItem("token");
 
-  console.log({ postalCode });
-
   const handleDeleteClick = () => {
     setDeleteAccount(true);
   };
@@ -159,7 +157,7 @@ const Profile = () => {
       try {
         const profileData = await getUserProfile(token);
 
-        setFirstName(profileData.data.name);
+        setFirstName(profileData.data.firstName);
         setLastName(profileData.data.lastName);
         setPhone(profileData.data.phone);
         setCountry(profileData.data.countryName);
