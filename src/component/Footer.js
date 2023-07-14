@@ -15,6 +15,12 @@ const Footer = () => {
 
   const handleLogoutModal = () => {
     setShowLogoutModal(false);
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    };
   };
 
   return (
@@ -87,7 +93,9 @@ const Footer = () => {
                   isLandingPage ? "disabled" : ""
                 }`}
                 disabled={isLandingPage}
-                onClick={() => setShowLogoutModal(true)}>
+                onClick={() => {
+                  setShowLogoutModal(true);
+                }}>
                 Logout
               </button>
             </li>
