@@ -181,6 +181,7 @@ const FooterSection = styled.div`
   }
   .footer-logout-btn.disabled {
     cursor: not-allowed;
+    display: none;
   }
 
   @media (width < 620px) {
