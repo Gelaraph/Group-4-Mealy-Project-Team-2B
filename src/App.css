@@ -259,7 +259,7 @@ button {
 
 .search-results-dropdown {
   position: absolute;
-  top: 50%;
+  top: 60%;
   z-index: 999;
   background-color: #ffffff;
   border: 1px solid #ccc;
