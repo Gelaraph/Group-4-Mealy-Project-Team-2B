@@ -58,7 +58,7 @@ const Aboutmain = () => (
             </p>
           </div>
         </div>
-        <div className={styles.imgContainer} />
+        {/* <div className={styles.imgContainer} /> */}
       </div>
     </div>
   </div>
