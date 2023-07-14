@@ -179,10 +179,6 @@ const FooterSection = styled.div`
     font-size: 15px;
     line-height: 24px;
   }
-  .footer-logout-btn.disabled {
-    cursor: not-allowed;
-    display: none;
-  }
 
   @media (width < 620px) {
     footer {
@@ -236,6 +232,10 @@ const FooterSection = styled.div`
     footer.top .links {
       grid-template-columns: 1fr;
     }
+  }
+   .footer-logout-btn.disabled {
+    cursor: not-allowed;
+    display: none !important;
   }
 `;
 
