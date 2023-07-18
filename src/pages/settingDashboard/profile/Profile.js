@@ -17,23 +17,26 @@ import Modal from "../../../component/Modal";
 import Input from "../../../component/Input";
 import edit from "../../../assets/images/profile-edit-pen.png";
 import Button from "../../../component/Button";
+import "../style.css";
+import SnackbarComponent from "../../../component/Snackbar";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [addressEditing, setIsAddressEditing] = useState(false);
   const [country, setCountry] = useState("");
   const [cityState, setCityState] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [email, setEmail] = useState("");
   const [street, setStreet] = useState("");
   const [deleteAccount, setDeleteAccount] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [showImageSaveButton, setShowImageSaveButton] = useState(false);
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -48,7 +51,6 @@ const Profile = () => {
     try {
       setLoading(true);
       // Make a request to the delete request endpoint
-      console.log({ token });
       await axios.post(
         "https://mealy.onrender.com/api/v1/user/deleterequest",
         null,
@@ -61,7 +63,7 @@ const Profile = () => {
       // Navigate the user to the token input route
       navigate("/delete-account-verification");
     } catch (error) {
-      console.log("Error deleting account:", error);
+      // console.log("Error deleting account:", error);
     } finally {
       setLoading(false);
     }
@@ -70,6 +72,7 @@ const Profile = () => {
   const handleEditClick = () => {
     setIsEditing(true);
   };
+
   const handleAddressEditClick = () => {
     setIsAddressEditing(true);
   };
@@ -83,6 +86,7 @@ const Profile = () => {
         phone,
       };
       await updatePersonalInfo(personalInfo, token);
+      setShowSnackbar(true);
     } catch (error) {
       console.error("Error updating personal info:", error);
     }
@@ -97,21 +101,19 @@ const Profile = () => {
         numberAndStreet: street,
         postalCode,
       };
-      const updatedAddress = await updateAddressInfo(addressInfo, token);
-      // Handle the response or perform any necessary actions
+      await updateAddressInfo(addressInfo, token);
+      setShowSnackbar(true);
     } catch (error) {
-      console.error("Error updating address info:", error);
+      // console.error("Error updating address info:", error);
     }
   };
 
-  const handleSaveImageClick = async () => {
+  const handleImageUpload = async () => {
     try {
-      await uploadProfilePicture(image, token);
+      await uploadProfilePicture(image);
       setShowImageSaveButton(false);
-      console.log({ image });
     } catch (error) {
-      console.error("Error updating image info:", error);
-      console.log({ image });
+      // console.error("Error updating image info:", error);
     }
   };
 
@@ -129,26 +131,9 @@ const Profile = () => {
     }
   }, []);
 
-  const handleImageUpload = (event) => {
-    console.log({ event });
+  const handleImageInput = (event) => {
     const uploadedImage = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const imageDataURL = reader.result;
-      setImage(imageDataURL);
-      setTimeout(() => {
-        console.log("Image data URL:", imageDataURL);
-      }, 500);
-    };
-
-    reader.onerror = (error) => {
-      console.error("Error reading the file:", error);
-    };
-
-    if (uploadedImage) {
-      reader.readAsDataURL(uploadedImage);
-    }
+    setImage(uploadedImage);
     setShowImageSaveButton(true);
   };
 
@@ -158,16 +143,16 @@ const Profile = () => {
       try {
         const profileData = await getUserProfile(token);
 
-        setFirstName(profileData.data.firstName);
-        setLastName(profileData.data.lastName);
-        setPhone(profileData.data.phone);
-        setCountry(profileData.data.countryName);
-        setCityState(profileData.data.cityAndState);
-        setStreet(profileData.data.numberAndStreet);
-        setPostalCode(profileData.data.postalCode);
-        setEmail(profileData.data.email);
+        setFirstName(profileData.data?.name);
+        setLastName(profileData.data?.lastName);
+        setPhone(profileData.data?.phone);
+        setCountry(profileData.data?.countryName);
+        setCityState(profileData.data?.cityAndState);
+        setStreet(profileData.data?.numberAndStreet);
+        setPostalCode(profileData.data?.postalCode);
+        setEmail(profileData.data?.email);
       } catch (error) {
-        console.error("Error fetching user profile:", error);
+        // console.error("Error fetching user profile:", error);
       }
     };
 
@@ -189,7 +174,9 @@ const Profile = () => {
 
             <div>
               <div className="profile-name-location-div">
-                <p className="user-name">{`${firstName}`}</p>
+                <p className="user-name">{`${
+                  firstName?.split(" ")[0]
+                } ${lastName}`}</p>
 
                 <p className="user-saved-location">
                   {`${cityState && cityState.length > 0 ? cityState : ""} ${
@@ -202,7 +189,7 @@ const Profile = () => {
                 {showImageSaveButton && (
                   <button
                     type="button"
-                    onClick={handleSaveImageClick}
+                    onClick={handleImageUpload}
                     className="save-img-btn">
                     Save
                   </button>
@@ -219,7 +206,8 @@ const Profile = () => {
                     id="image-input"
                     type="file"
                     accept="image/*"
-                    onChange={handleImageUpload}
+                    onChange={handleImageInput}
+                    // onChange={saveFile}
                   />
                 </div>
               </div>
@@ -244,17 +232,18 @@ const Profile = () => {
                   {isEditing ? (
                     <Input
                       type="text"
-                      value={firstName}
+                      value={`${firstName?.split(" ")[0]}`}
                       className="edit-input"
                       onChange={(e) => setFirstName(e.target.value)}
                     />
                   ) : (
-                    <h4>{firstName}</h4>
+                    <h4>{`${firstName?.split(" ")[0]}`}</h4>
                   )}
                 </div>
 
                 <div>
                   <p>Email address</p>
+                  <h4 className={isEditing ? "greyed-out" : ""}>{email}</h4>
                   <h4 className={isEditing ? "greyed-out" : ""}>{email}</h4>
                 </div>
               </div>
@@ -416,6 +405,10 @@ const Profile = () => {
             </div>
           </Modal>
         )}
+
+        {showSnackbar && (
+          <SnackbarComponent message="Settings successfully updated" />
+        )}
       </div>
     </ProfileStyles>
   );
@@ -480,6 +473,7 @@ const ProfileStyles = styled.div`
   }
   .edit-input {
     margin-top: 1em;
+    width: 300px;
   }
   .edit-save-btn-div {
     justify-content: flex-end;
@@ -526,9 +520,10 @@ const ProfileStyles = styled.div`
     border-radius: 3px;
     height: 30px;
     font-size: 14px;
+    cursor: pointer;
   }
   .save-img-btn {
-    margin-top: 1.3em;
+    /* margin-top: 1.3em; */
   }
   .no-picture-icon {
     font-size: 60px;
@@ -544,6 +539,27 @@ const ProfileStyles = styled.div`
     display: flex;
     justify-content: space-between;
     column-gap: 1em;
+  }
+  @media (max-width: 1051px) {
+    .personal-information-edit {
+      display: grid;
+      place-items: center;
+      > div {
+        width: 100%;
+      }
+      p,
+      h4 {
+        font-size: 16px;
+      }
+      .edit-input {
+        margin-top: 0.3em;
+      }
+    }
+  }
+  @media (max-width: 645px) {
+    .edit-input {
+      width: 100%;
+    }
   }
 `;
 export default Profile;

@@ -26,12 +26,12 @@ const NewPassword = ({ onPasswordSubmit, error, setIsLoading, isLoading }) => {
     const isConfirmPasswordValid = validateConfirmPassword();
 
     if (isPasswordValid && isConfirmPasswordValid) {
+      setIsLoading(true);
+      onPasswordSubmit(password, confirmPassword);
       setPassword("");
       setConfirmPassword("");
       setPasswordError("");
       setConfirmPasswordError("");
-      setIsLoading(true);
-      onPasswordSubmit(password);
     }
   };
 

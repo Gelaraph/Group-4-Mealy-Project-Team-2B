@@ -131,7 +131,7 @@ const SideCheckoutSummaryStyle = styled.div`
   }
 
   .food-img {
-    width: 3rem;
+    /* width: 3rem; */
   }
 
   .food-img img {

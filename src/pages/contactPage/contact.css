@@ -52,7 +52,7 @@ form {
   margin: 1rem 0;
 }
 
-.input {
+.contact-input {
   width: 100%;
   outline: none;
   border: 2px solid rgb(187, 187, 196);
@@ -92,12 +92,10 @@ textarea.input {
   transform: translateY(0);
 }
 .contact-header {
-  color: #32324d;
   text-align: center;
-}
-.contact-header h1 {
-  font-weight: 800;
-  font-size: 36px;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 2em;
 }
 
 .btn {

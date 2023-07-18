@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from "react";
-import Map from "../../assets/map2.svg";
 import Profile from "../../assets/images/tracking/profile.png";
 import HelpIcon from "../../assets/images/hero/help-icon.svg";
 import Star from "../../assets/images/tracking/star.svg";

@@ -3,33 +3,35 @@ import { useNavigate } from "react-router-dom";
 import VerifyEmail from "./VerifyEmail";
 import ForgotPassword from "./ForgotPassword";
 import NewPassword from "./NewPassword";
+import "../authPagesStyles.css";
 
 const ForgotPasswordFlow = () => {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(null);
   const [codeSent, setCodeSent] = useState(false);
   const [resetPasswordToken, setResetPasswordToken] = useState("");
   const [codeValidated, setCodeValidated] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(true);
   const [showCodeForm, setShowCodeForm] = useState(false);
   const [showNewPasswordForm, setShowNewPasswordForm] = useState(false);
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleEmailSubmit = (Inputcode) => {
     setError("");
     setIsLoading(true);
     fetch("https://mealy.onrender.com/api/v1/user/forgotpassword", {
       method: "POST",
-      body: JSON.stringify({ Inputcode }),
+      body: JSON.stringify({ email: Inputcode }),
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
+        if (data.status === "Success") {
+          setEmail(Inputcode);
           setCodeSent(true);
           setShowEmailForm(false);
           setShowCodeForm(true);
@@ -48,23 +50,22 @@ const ForgotPasswordFlow = () => {
 
   const handleCodeSubmit = (code) => {
     setError("");
+    setIsLoading(true);
     // Call the API endpoint to validate the forgot password code
     fetch("https://mealy.onrender.com/api/v1/user/resetpassword/code", {
       method: "POST",
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({ resetPasswordToken: code }),
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
-          const resetPasswordTokenData = data.resetPasswordToken;
+        if (data.status === "Success") {
           setCodeValidated(true);
-          setResetPasswordToken(resetPasswordTokenData);
+          setResetPasswordToken(code);
           setShowCodeForm(false);
           setShowNewPasswordForm(true);
-          console.log(data);
         } else {
           setError(data.message);
         }
@@ -72,12 +73,16 @@ const ForgotPasswordFlow = () => {
       .catch((err) => {
         console.log(err);
         setError("An error occurred. Please try again.");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   const handleResendCode = () => {
     setError("");
-    fetch("https://mealy.onrender.com/api/v1/user/resetpassword/code", {
+    setIsLoading(true);
+    fetch("https://mealy.onrender.com/api/v1/user/forgotpassword", {
       method: "POST",
       body: JSON.stringify({ email }),
       headers: {
@@ -86,8 +91,9 @@ const ForgotPasswordFlow = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
-          console.log(data);
+        if (data.status === "Success") {
+          // Show success message or handle accordingly
+          console.log("Verification code resent successfully");
         } else {
           setError(data.message);
         }
@@ -95,16 +101,20 @@ const ForgotPasswordFlow = () => {
       .catch((err) => {
         console.log(err.message);
         setError("An error occurred. Please try again.");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
+  console.log({ resetPasswordToken });
 
-  const handlePasswordSubmit = (password) => {
+  const handlePasswordSubmit = (password, confirmPassword) => {
     setError("");
     fetch(
       `https://mealy.onrender.com/api/v1/user/resetpassword/${resetPasswordToken}`,
       {
-        method: "POST",
-        body: JSON.stringify({ password }),
+        method: "PUT",
+        body: JSON.stringify({ password, confirmPassword }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -112,10 +122,9 @@ const ForgotPasswordFlow = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
-          console.log(data);
+        if (data.status === "Success") {
           alert("Password updated successfully!");
-          history.push("/auth-user");
+          navigate("/auth-user");
         } else {
           setError(data.message);
         }
@@ -123,6 +132,9 @@ const ForgotPasswordFlow = () => {
       .catch((err) => {
         console.log(err);
         setError("An error occurred. Please try again.");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -143,8 +155,8 @@ const ForgotPasswordFlow = () => {
         onCodeSubmit={handleCodeSubmit}
         onResendCode={handleResendCode}
         error={error}
-        isLoading={isLoading}
         setIsLoading={setIsLoading}
+        isLoading={isLoading}
       />
     );
   } else if (showNewPasswordForm) {

@@ -1,17 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { SignOut, Auth, AuthDispatch } from "../utilities/auth";
+import { Auth, AuthDispatch } from "../utilities/auth";
 import Button from "./Button";
 
 const LogoutModal = () => {
-  const { state: user, dispatch } = Auth();
+  const { dispatch } = Auth();
 
   const history = useNavigate();
 
   const logout = () => {
     // console.log(user.user?.access_token)
-    const token = localStorage.getItem("token");
-    console.log(token);
+    localStorage.getItem("token");
     // SignOut(token).then(() => {
     //   // dispatch action to remove user
     //   dispatch({

@@ -165,6 +165,7 @@ const HeroSection = styled.div`
       font-weight: 700;
       font-size: 40px;
       margin: 0;
+      line-height: 1em;
     }
     .attributes-section-subheader {
       font-weight: 500;

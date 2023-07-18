@@ -21,7 +21,7 @@ const PaymentCheckout = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-
+  const [isSwitchChecked, setIsSwitchChecked] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const [paymentCards, setPaymentCards] = useState([
@@ -116,24 +116,31 @@ const PaymentCheckout = () => {
             <div className="schedule flex">
               <div className="schedule-text flex">
                 <h1>Schedule Delivery</h1>
-                <input className="switch" type="checkbox" checked />
-              </div>
-              <div className="calender-input flex">
                 <input
-                  type="datetime"
-                  name=""
-                  value={selectedDate}
-                  id=""
-                  className="calender input"
-                  placeholder="Select preferred date and time"
-                />
-                <img
-                  src={calender}
-                  alt=""
-                  className="calender-img"
-                  onClick={showScheduleDate}
+                  className="switch"
+                  type="checkbox"
+                  checked={isSwitchChecked}
+                  onChange={(e) => setIsSwitchChecked(e.target.checked)}
                 />
               </div>
+              {isSwitchChecked && (
+                <div className="calender-input flex">
+                  <input
+                    type="datetime"
+                    name=""
+                    value={selectedDate}
+                    id=""
+                    className="calender input"
+                    placeholder="Select preferred date and time"
+                  />
+                  <img
+                    src={calender}
+                    alt=""
+                    className="calender-img"
+                    onClick={showScheduleDate}
+                  />
+                </div>
+              )}
               {scheduleDate && (
                 <div>
                   <DateAndTime

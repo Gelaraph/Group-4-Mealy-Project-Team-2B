@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "../../Input";
-import HelpIcon from "../../../assets/images/hero/help-icon.svg";
+// import HelpIcon from "../../../assets/images/hero/help-icon.svg";
 import "./heroSection.css";
 
 const HeroSection = () => (

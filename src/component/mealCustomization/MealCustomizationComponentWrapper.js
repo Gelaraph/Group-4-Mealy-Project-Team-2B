@@ -34,7 +34,7 @@ const MealCustomizationComponentWrapper = () => {
             ...mappedContent,
           ]);
         } else {
-          console.error("Invalid data format received from the endpoint.");
+          // console.error("Invalid data format received from the endpoint.");
         }
       })
       .catch((error) => {

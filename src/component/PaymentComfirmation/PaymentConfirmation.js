@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../Button";
-import PaymentData from "../authComp/Data/PaymentConfirmation";
+// import PaymentData from "../authComp/Data/PaymentConfirmation";
 import Success from "../../assets/images/hero/success.svg";
 import "./paymentConfirmation.css";
 

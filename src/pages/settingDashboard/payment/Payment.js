@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import image1 from "../../../assets/image1.png";
+import "../style.css";
 
 const Payment = () => (
   <PaymentStyles>

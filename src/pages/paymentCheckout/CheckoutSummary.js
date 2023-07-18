@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { useCart } from "react-use-cart";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
-import Modal from "../../component/Modal";
-import PaymentConfirmation from "../../component/PaymentComfirmation/PaymentConfirmation";
 
 const CheckoutSummary = ({ onClick, ErrorMessage }) => {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
@@ -14,19 +12,6 @@ const CheckoutSummary = ({ onClick, ErrorMessage }) => {
     useCart();
 
   if (isEmpty) return " ";
-
-  // const handlePaymentModalClick = () => {
-  //   if (selectedCard) {
-  //     setIsPaymentModalOpen(true);
-  //   } else {
-  //     alert("Please choose a payment method first.");
-  //   }
-  //   setIsPaymentModalOpen(!isPaymentModalOpen);
-  // };
-
-  const handleClosePaymentModal = () => {
-    setIsPaymentModalOpen(false);
-  };
 
   useEffect(() => {
     const handleOutsideClick = (event) => {

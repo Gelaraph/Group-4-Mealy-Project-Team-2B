@@ -1,28 +1,28 @@
-import {useState} from 'react'
-import rest from '../utilities/rest';
+import { useState } from "react";
+import rest from "../utilities/rest";
 import { Auth, AuthDispatch, getCurrentUser } from "../utilities/auth";
 
 export default function UseAuth() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { dispatch } = Auth()
+  const { dispatch } = Auth();
 
-  function getUser(userEmail){
+  function getUser(userEmail) {
     return getCurrentUser(userEmail)
-      .then(async(user) => {
+      .then(async (user) => {
         if (user) {
           // update user context with actual user data
-          console.log('pre dispatch auth', user.data?.data?.user)
-          const data = user.data?.data?.user
+          // console.log("pre dispatch auth", user.data?.data?.user);
+          const data = user.data?.data?.user;
           dispatch({
             type: AuthDispatch.Authenticated,
-            payload: {data},
-          })
+            payload: { data },
+          });
         }
       })
-      .catch(err => {
-        console.error('Error fetching user data:', err);
+      .catch((err) => {
+        console.error("Error fetching user data:", err);
       });
   }
 
@@ -31,7 +31,8 @@ export default function UseAuth() {
     try {
       setIsLoading(true);
       setError(null);
-      response = await rest().post("/signin",{email,password});
+      response = await rest().post("/signin", { email, password });
+      // return response;
     } catch (err) {
       let errorMessage = "An error occurred";
       if (
@@ -48,12 +49,9 @@ export default function UseAuth() {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-          errorMessage = err.request;
+        errorMessage = err.request;
       } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', err.message);
         errorMessage = err.message;
-        return errorMessage;
       }
       setError(errorMessage);
     } finally {
@@ -67,7 +65,9 @@ export default function UseAuth() {
     try {
       setIsLoading(true);
       setError(null);
-      response = rest().post("/signup", userData)
+      response = await rest().post("/signup", userData);
+      // Handle successful response if needed
+      return response;
     } catch (err) {
       let errorMessage = "An error occurred";
       if (
@@ -79,19 +79,19 @@ export default function UseAuth() {
       ) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
+
         errorMessage = err.response.data;
       } else if (err.request) {
         // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-          errorMessage = err.request;
+        // `err.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in Node.js
+        errorMessage = err.request;
       } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', err.message);
+        // Something else went wrong, capture the error message
         errorMessage = err.message;
-        return errorMessage;
       }
       setError(errorMessage);
+      // Handle the error in any other necessary way
     } finally {
       setIsLoading(false);
     }
@@ -99,6 +99,10 @@ export default function UseAuth() {
   };
 
   return {
-    signIn, signUp, error, isLoading, getUser
-  }
+    signIn,
+    signUp,
+    error,
+    isLoading,
+    getUser,
+  };
 }

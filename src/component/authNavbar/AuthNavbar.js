@@ -29,7 +29,7 @@ const AuthNavbar = () => {
   };
 
   useEffect(() => {
-    const handleOutsideClick = (event) => {
+    const handleOutsideClick = () => {
       if (
         modalOverlayRef.current &&
         modalOverlayRef.current.classList.contains("modal-overlay") &&

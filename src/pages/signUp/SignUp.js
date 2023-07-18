@@ -8,14 +8,16 @@ import Button from "../../component/Button";
 import { RightSideImage } from "../authPageBgImg";
 import { FormValidationContext } from "../../hooks/UseFormValidationsContext";
 import UseAuth from "../../hooks/useAuth";
+import "../authPagesStyles.css";
+import "./style.css"
 
 const SignUp = () => {
   const [requestSuccess, setRequestSuccess] = useState("");
-  const [disableBtn, setDisableBtn] = useState(false)
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const history = useNavigate();
 
-  const { isLoading, error, signUp, getUser } = UseAuth();
+  const { isLoading, error, signUp } = UseAuth();
 
   const {
     name,
@@ -49,7 +51,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDisableBtn(true)
+    setDisableBtn(true);
     const isFirstNameValid = validateName();
     const isEmailValid = validateEmail();
     const isPasswordValid = validatePassword();
@@ -63,12 +65,6 @@ const SignUp = () => {
       isConfirmPasswordValid &&
       isAgreeCheckedValid
     ) {
-      setNameError("");
-      setEmailError("");
-      setPasswordError("");
-      setConfirmPasswordError("");
-      setAgreeCheckedError("");
-
       signUp({
         name,
         email,
@@ -76,7 +72,12 @@ const SignUp = () => {
         confirmPassword,
         receivePromotionalEmails,
       }).then((response) => {
-        setRequestSuccess(response.status)
+        setRequestSuccess(response.status);
+        setNameError("");
+        setEmailError("");
+        setPasswordError("");
+        setConfirmPasswordError("");
+        setAgreeCheckedError("");
       });
     }
   };
@@ -87,9 +88,8 @@ const SignUp = () => {
       // getUser(email).then(() => {
       //   history("/sign-up-verification");
       // })
-    }
-    else {
-      setDisableBtn(false)
+    } else {
+      setDisableBtn(false);
     }
   });
 
@@ -103,7 +103,9 @@ const SignUp = () => {
         </a>
 
         <form className="input-wrapper" onSubmit={handleSubmit}>
-          <h2>Create an Account</h2>
+          <div className="signup-form-title">
+            <h2>Create an Account</h2>
+          </div>
 
           <div className="input-div input-cont">
             <Input
@@ -192,7 +194,7 @@ const SignUp = () => {
               />
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="agree" className="checkbox-label">
-                yes, I understand and agree to Mealy’s Terms of service
+                Yes, I understand and agree to Mealy’s Terms of service
               </label>
               <div className="validation-error-div">
                 {agreeCheckedError && (
@@ -203,8 +205,15 @@ const SignUp = () => {
           </div>
 
           <div className="create-acc-btn">
-            {error && <div className="endpoint-error">{error}</div>}
-            <Button type="submit" className="input-width" style={disableBtn ? {opacity: '0.6',cursor:'not-allowed'}:{opacity:'1'}}>
+            <div className="error-message endpoint-error">{error}</div>
+            <Button
+              type="submit"
+              className="input-width"
+              style={
+                disableBtn
+                  ? { opacity: "0.6", cursor: "not-allowed" }
+                  : { opacity: "1" }
+              }>
               {isLoading ? "Signing Up..." : "Create an account"}
             </Button>
           </div>

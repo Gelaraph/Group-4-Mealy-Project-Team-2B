@@ -14,6 +14,7 @@ import Modal from "../../component/Modal";
 import Profile from "./profile/Profile";
 import Payment from "./payment/Payment";
 
+
 const TabPanel = ({ children, value, index }) => (
   <div
     role="tabpanel"

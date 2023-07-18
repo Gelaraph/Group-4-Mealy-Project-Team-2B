@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Layout from "../../component/Layout";
 import MealCustomizationComponentWrapper from "../../component/mealCustomization/MealCustomizationComponentWrapper";
 import Input from "../../component/Input";
-import HelpIcon from "../../assets/images/hero/help-icon.svg";
+// import HelpIcon from "../../assets/images/hero/help-icon.svg";
 import "../../component/authComp/HeroSection/heroSection.css";
 import { Auth } from "../../utilities/auth";
 
@@ -37,7 +37,7 @@ const AuthHomePage = () => {
           );
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     } else {
       setSearchResults([]);
@@ -73,7 +73,9 @@ const AuthHomePage = () => {
     <Layout>
       <div className="hero-page-box">
         <div className="search">
-          <h1 className="hero-title">Welcome, {`${user.user?.name}`}</h1>
+          <h1 className="hero-title">
+            Welcome{user.user?.name && `, ${user.user.name}`}
+          </h1>
           <p className="hero-description">What would you like to eat?</p>
           <Input
             type="text"

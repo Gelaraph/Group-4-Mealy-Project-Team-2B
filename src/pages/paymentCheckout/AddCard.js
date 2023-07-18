@@ -157,6 +157,10 @@ const Wrapper = styled.div`
     width: 100%;
     height: 30px;
   }
+  .add-card-btn-div {
+    margin-top: 1.5em;
+    padding-bottom: 1em;
+  }
 `;
 
 export default AddCard;

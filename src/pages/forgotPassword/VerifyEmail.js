@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import Input from "../../component/Input";
@@ -12,6 +14,7 @@ const VerifyEmail = ({
   isLoading,
 }) => {
   const [code, setCode] = useState("");
+  const [resendMessage, setResendMessage] = useState(false);
 
   const handleCodeChange = (e) => {
     setCode(e.target.value);
@@ -21,10 +24,15 @@ const VerifyEmail = ({
     e.preventDefault();
     setIsLoading(true);
     onCodeSubmit(code);
+    setCode("");
   };
 
-  const handleResendCode = () => {
+  const handleResendCode = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
     onResendCode();
+    setCode("");
+    setResendMessage(true);
   };
 
   return (
@@ -44,7 +52,7 @@ const VerifyEmail = ({
             <div className="input verify-input">
               <form onSubmit={handleSubmit}>
                 <Input
-                  type="email"
+                  type="number"
                   className="input-width"
                   value={code}
                   onChange={handleCodeChange}
@@ -61,10 +69,12 @@ const VerifyEmail = ({
             </div>
 
             <p className="forgot-password">
+              {resendMessage && <span>Code has been resent! </span>}
               If you did not recieve a code?
-              <a href="/reset-password" onClick={handleResendCode}>
+              <span onClick={handleResendCode} className="resend-link">
+                {" "}
                 Resend
-              </a>
+              </span>
               .
             </p>
           </div>

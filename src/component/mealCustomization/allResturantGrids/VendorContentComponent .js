@@ -6,6 +6,7 @@ import MultipleLoadingCard from "../../MultipleLoadingCard";
 import ResturantContent from "../ResturantContent";
 import Meal from "../../../assets/images/meal.png";
 import Avocado from "../../../assets/images/hero/avocado-sandwich.png";
+import "../../authComp/HeroSection/heroSection.css";
 
 const VendorContentComponent = ({ vendorName }) => {
   const [contents, setContents] = useState([]);
@@ -20,7 +21,6 @@ const VendorContentComponent = ({ vendorName }) => {
           `https://mealy.onrender.com/api/v1/vendor/${vendorName}`,
         );
         const data = await response.json();
-        console.log({ data });
         if (Array.isArray(data.data.products)) {
           const firstContentData = data.data.products
             .slice(0, 8)

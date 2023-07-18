@@ -5,7 +5,7 @@ import { useCart } from "react-use-cart";
 import { ImCancelCircle } from "react-icons/im";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
-
+import "../../mealDashboard/dashboardStyle.css";
 import "./cartmodal.css";
 import EmptyCart from "./EmptyCart";
 
@@ -20,7 +20,7 @@ const CartModal = ({ open, onClose }) => {
       <Wrapper>
         {isEmpty && <EmptyCart />}
         {!isEmpty && (
-          <div>
+          <div className="mid-cart">
             <div className="cart flex extras-scroll">
               {items.map((item) => (
                 <div className="food flex" key={item.createdAt}>
@@ -57,7 +57,7 @@ const CartModal = ({ open, onClose }) => {
               ))}
             </div>
 
-            <div className="cartmodal-btn-div">
+            <div className="cart-modal-btn flex">
               <a href="/checkout">
                 <button type="button" className="cart-checkout-btn">
                   Checkout
@@ -102,22 +102,40 @@ const OpenWrapper = styled.div`
       cursor: pointer;
     }
   }
+  .cart-modal-btn {
+    justify-content: center;
+    align-items: center;
+    a {
+      width: 70%;
+      margin: 0 auto;
+    }
+  }
 `;
 const Wrapper = styled.div`
   padding: 5px 15px;
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+  padding-top: 1em;
   .cart {
-    margin-top: 1em;
-    width: 95%;
+    padding-top: 3.5em;
+    width: 100%;
     padding-bottom: 1em;
+    display: flex;
+    padding-right: 0.5em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .food {
+    width: 100%;
   }
   .food-texts small {
     text-align: start;
   }
   .food-number svg {
     cursor: pointer;
+    font-size: 16px;
   }
   .cart-checkout-btn {
     outline: none;
@@ -131,14 +149,8 @@ const Wrapper = styled.div`
     padding: 0.3em;
     width: 100%;
   }
-  .cartmodal-btn-div {
-    display: flex;
-    justify-content: center;
-    width: 80%;
-    margin: 0 auto;
-    a {
-      width: 100%;
-    }
+  .mid-cart {
+    width: 100%;
   }
 `;
 

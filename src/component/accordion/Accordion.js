@@ -11,9 +11,7 @@ const Accordion = ({ title, accordioncontent }) => {
   const content = useRef(null);
   const [height, setHeight] = useState("0px");
 
-  useEffect(() => {
-    console.log("Height for ", { title }, ": ", height);
-  }, [height]);
+  useEffect(() => {}, [height]);
 
   function toggleAccordion() {
     setActive(!active);

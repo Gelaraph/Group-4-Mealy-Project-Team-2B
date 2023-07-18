@@ -54,14 +54,14 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li>
-              <a href="./sign-up">
+              <a href="/sign-up">
                 <Button type="button" className="nav-sign-up">
                   Sign up
                 </Button>
               </a>
             </li>
             <li>
-              <a href="./sign-in">
+              <a href="sign-in">
                 <Button type="button" className="nav-sign-in">
                   Sign in
                 </Button>

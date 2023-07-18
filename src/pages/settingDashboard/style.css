@@ -166,6 +166,9 @@
   place-items: center;
 }
 
+.dashbaord-content-grid {
+}
+
 @media (max-width: 1000px) {
   .main-orders-container {
     padding: 3rem 2rem;
@@ -240,4 +243,7 @@
     border-bottom: none;
     border-radius: 0;
   }
+}
+.order-explor-btn {
+  margin-top: 1em;
 }

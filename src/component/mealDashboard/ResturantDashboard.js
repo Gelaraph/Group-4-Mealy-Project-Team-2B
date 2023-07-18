@@ -42,8 +42,6 @@ const ResturantDashboard = () => {
     setSelectedProduct(product);
   };
 
-  console.log({ selectedProduct });
-
   const location = useLocation();
   const { pathname } = location;
   const parts = pathname.split("/");
@@ -150,8 +148,6 @@ const ResturantDashboard = () => {
     }
   };
 
-  console.log({ products });
-
   return (
     <Layout>
       <DashboardStyle>
@@ -177,7 +173,6 @@ const ResturantDashboard = () => {
                     if (index !== 0) {
                       handleChange(index);
                       handleTabClick(category);
-                      console.log({ category });
                     }
                   }}
                   tabIndex={value === index ? 0 : -1}
@@ -262,7 +257,6 @@ const DashboardStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    /* color: #ffffff; */
     color: #000000;
     align-items: center;
     text-decoration: none;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Input from "../../component/Input";
 import Button from "../../component/Button";
 import signupVerImage from "../../assets/images/verification-image.png";
+import "../authPagesStyles.css";
 
 const ResetPasswordEmailVerification = () => {
   const [email, setEmail] = useState("");

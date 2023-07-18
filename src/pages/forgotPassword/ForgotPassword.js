@@ -13,7 +13,6 @@ const ForgotPassword = ({ onEmailSubmit, error, setIsLoading, isLoading }) => {
     e.preventDefault();
 
     const isEmailValid = validateEmail();
-
     if (isEmailValid) {
       setEmailError("");
       setIsLoading(true);

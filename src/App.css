@@ -259,7 +259,7 @@ button {
 
 .search-results-dropdown {
   position: absolute;
-  top: 40%;
+  top: 50%;
   z-index: 999;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -295,4 +295,10 @@ button {
 .google-map {
   width: 60%;
   height: 240px;
+}
+.flex {
+  display: flex;
+}
+.tab-button {
+  cursor: pointer;
 }

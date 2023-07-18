@@ -22,7 +22,7 @@ const ValidationProvider = ({ children }) => {
   const [receivePromotionalEmails, setReceivePromotionalEmails] =
     useState(false);
 
-  const [agreeChecked, setAgreeChecked] = useState(true);
+  const [agreeChecked, setAgreeChecked] = useState(false);
   const [agreeCheckedError, setAgreeCheckedError] = useState("");
 
   const validateEmail = () => {

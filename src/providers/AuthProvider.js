@@ -79,7 +79,7 @@ const AuthProvider = ({ children }) => {
           type: AuthDispatch.SignOut,
         });
       } else {
-        console.error(error);
+        // console.error(error);
       }
     } finally {
       setIsLoading(false);

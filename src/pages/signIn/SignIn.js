@@ -12,13 +12,14 @@ import UseGoogleSignIn from "../../hooks/useGoogleSignIn";
 import UseAuth from "../../hooks/useAuth";
 import { AuthDispatch, Auth } from "../../utilities/auth";
 import { setAuthToken } from "../../utilities/rest";
+import "../authPagesStyles.css"
 
 const SignIn = () => {
   const [requestSuccess, setRequestSuccess] = useState("");
 
   const {
     dispatch,
-    state: { isVerified },
+    // state: { isVerified },
   } = Auth();
 
   const {
@@ -29,7 +30,6 @@ const SignIn = () => {
     password,
     setPassword,
     passwordError,
-    validatePassword,
     setEmailError,
     setPasswordError,
   } = useContext(FormValidationContext);
@@ -39,17 +39,17 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const isEmailValid = validateEmail();
-    const isPasswordValid = validatePassword();
-
-    if (isEmailValid && isPasswordValid) {
-      setEmailError("");
-      setPasswordError("");
-      setEmail("");
-      setPassword("");
+    if (isEmailValid) {
       signIn(email, password).then((response) => {
-        setRequestSuccess(response);
+        // if the user gets an errorr for invalid  login credentials
+        if (typeof response !== "string") {
+          setRequestSuccess(response);
+          setEmailError("");
+          setPasswordError("");
+          setEmail("");
+          setPassword("");
+        }
       });
     }
   };
@@ -57,9 +57,8 @@ const SignIn = () => {
   const handleGoogleSignIn = (e) => {
     e.preventDefault();
     const isEmailValid = validateEmail();
-    const isPasswordValid = validatePassword();
 
-    if (isEmailValid && isPasswordValid) {
+    if (isEmailValid) {
       setEmailError("");
       setPasswordError("");
       setEmail("");
@@ -70,7 +69,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (requestSuccess) {
-      console.log("from sign in", requestSuccess);
+      // console.log("from sign in", requestSuccess);
       const currentUser = requestSuccess.data?.data?.user;
       const accessToken = requestSuccess.data?.data?.user?.accessToken;
 
@@ -152,21 +151,16 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div className="validation-error-div sign-in-validation-div">
-                {passwordError && (
-                  <div className="sign-in-password-div flex">
-                    <span className="validation-error">{passwordError}</span>
-                    <a href="/forgot-password">
-                      <span className="forgot-password-link validation-error">
-                        Forgot password?
-                      </span>
-                    </a>
-                  </div>
-                )}
+                <a href="/forgot-password">
+                  <span className="forgot-password-link validation-error">
+                    Forgot password?
+                  </span>
+                </a>
               </div>
             </div>
 
             <div className="create-acc-btn">
-              {error && <p className="validation-error"> {error}</p>}
+              <p className="endpoint-error"> {error}</p>
               <Button type="submit" className="input-width">
                 {isLoading ? "Signing In..." : "Sign In"}
               </Button>
@@ -181,7 +175,7 @@ const SignIn = () => {
             <img
               src={google}
               alt="google-icon"
-              onClick={handleGoogleSignIn}
+              // onClick={handleGoogleSignIn}
               disabled={isLoading}
             />
             <img src={facebook} alt="facebook-icon" />

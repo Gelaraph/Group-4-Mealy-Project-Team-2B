@@ -6,9 +6,7 @@ import "react-datetime/css/react-datetime.css";
 import moment from "moment";
 
 const yesterday = moment().subtract(1, "day");
-const valid = function (current) {
-  return current.isAfter(yesterday);
-};
+const valid = (current) => current.isAfter(yesterday);
 
 const DateAndTime = ({ value, onChange }) => {
   const renderDay = (props, currentDate) => (

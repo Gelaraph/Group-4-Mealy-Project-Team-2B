@@ -62,7 +62,7 @@ const Contact = () => (
                 <input
                   type="text"
                   name="name"
-                  className="input"
+                  className="contact-input"
                   placeholder="Name"
                 />
               </div>
@@ -70,7 +70,7 @@ const Contact = () => (
                 <input
                   type="email"
                   name="email"
-                  className="input"
+                  className="contact-input"
                   placeholder="Email"
                 />
               </div>
@@ -78,14 +78,14 @@ const Contact = () => (
                 <input
                   type="tel"
                   name="phone"
-                  className="input"
+                  className="contact-input"
                   placeholder="Phone Number"
                 />
               </div>
               <div className="input-container textarea">
                 <textarea
                   name="message"
-                  className="input"
+                  className="contact-input"
                   placeholder="type text here..."
                 />
               </div>

@@ -4,6 +4,7 @@ import Input from "../../component/Input";
 import Button from "../../component/Button";
 import signupImage from "../../assets/images/signup.svg";
 import { FormValidationContext } from "../../hooks/UseFormValidationsContext";
+import "../authPagesStyles.css";
 
 const ResetPassword = () => {
   const {

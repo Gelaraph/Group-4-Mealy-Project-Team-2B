@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "../../../component/Button";
 import edit from "../../../assets/images/edit.svg";
 import GreyRectangle from "../../../assets/images/grey-Rectangle.png";
+import "../style.css";
 
 const Delete = () => (
   <DeleteStyles>

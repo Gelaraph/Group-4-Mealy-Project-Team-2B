@@ -14,10 +14,13 @@ const UNPROTECTED_PAGE_PATHS = [
   "/create-new-password",
   "/reset-password",
   "/reset-password-verification",
+  "/contact",
+  "/about",
 ];
 
 export const isUnprotected = (path) =>
   UNPROTECTED_PAGE_PATHS.includes(path.toLowerCase());
+
 export const isProtected = (path) => !isUnprotected(path.toLowerCase());
 
 export const ProtectRoute = ({ children }) => {
@@ -26,7 +29,7 @@ export const ProtectRoute = ({ children }) => {
   } = Auth();
 
   const location = useLocation();
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // console.log(location.pathname)
@@ -35,14 +38,14 @@ export const ProtectRoute = ({ children }) => {
   }, [location.pathname.toLowerCase()]);
 
   if (isLoading) {
-    return <div>LOADING</div>; // <LoadingScreen />
+    return <div>LOADING....</div>; // <LoadingScreen />
   } else if (isAuthenticated && isUnprotected(location.pathname)) {
-    history("/auth-user");
+    navigate("/auth-user");
   } else if (isAuthenticated && isProtected(location.pathname)) {
     // history("/auth-user")
     return children;
   } else if (!isAuthenticated && isProtected(location.pathname)) {
-    history("/sign-in");
+    navigate("/sign-in");
   }
 
   return children ? children : <Outlet />;

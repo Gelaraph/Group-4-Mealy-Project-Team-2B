@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const uploadImageToken = localStorage.getItem("token");
+
 export const updatePersonalInfo = async (personalInfo, token) => {
   try {
     const response = await fetch(
@@ -37,7 +39,6 @@ export const updateAddressInfo = async (addressInfo, token) => {
     );
 
     const data = await response.json();
-    console.log({ data });
     return data;
   } catch (error) {
     console.error("Error updating address info:", error);
@@ -45,25 +46,21 @@ export const updateAddressInfo = async (addressInfo, token) => {
   }
 };
 
-export const uploadProfilePicture = async (file, token) => {
+export const uploadProfilePicture = async (file) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
-    console.log({ formData });
-
     const response = await fetch(
       "https://mealy.onrender.com/api/v1/user/profile/photo",
       {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${uploadImageToken}`,
         },
-        body: formData,
+        body: { file },
       },
     );
-
     const data = await response.json();
-    console.log("hello");
     return data;
   } catch (error) {
     console.error("Error uploading profile picture:", error);

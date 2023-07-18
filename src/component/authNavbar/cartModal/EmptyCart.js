@@ -6,7 +6,7 @@ const EmptyCart = () => (
   <EmptyStyle>
     <div>
       <img src={EmptyPana} alt="" />
-      <h4>OOps!, Empty Cart.</h4>
+      <h4 className="exclam">OOps!, Empty Cart.</h4>
       <a href="/menu">
         <button type="button" className="explore-btn">
           Explore Menu
@@ -22,6 +22,9 @@ const EmptyStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  .exclam {
+    font-size: 0.7em;
+  }
   > div {
     width: 90% !important;
     display: grid;
@@ -51,6 +54,7 @@ const EmptyStyle = styled.div`
     border-radius: 3px;
     padding: 0.3em;
     width: 70%;
+    margin-top: 1em;
   }
 `;
 

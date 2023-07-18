@@ -18,7 +18,7 @@ const Orders = () => {
             <div className="empty-order-cont">
               <img alt="" src={EmptyPana} className="empty-vector" />
               <p>You do not have any ongoing order yet.</p>
-              <a href="/menu">
+              <a href="/menu" className="order-explor-btn">
                 <Button>Explore menu</Button>
               </a>
             </div>

@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaCaretDown } from "react-icons/fa";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { useCart } from "react-use-cart";
 import {
   Items,
@@ -12,7 +11,6 @@ import {
   NavWrapper,
 } from "./navbar.styled";
 import location from "../../../assets/images/locationVector.png";
-import MenuBtn from "./MenuBtn";
 import useScreenSize from "../../../hooks/useScreenSize";
 import CartModal from "../cartModal/CartModal";
 import FixedCart from "../cartModal/FixedCart";
@@ -50,7 +48,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const handleOutsideClick = (event) => {
+    const handleOutsideClick = () => {
       if (
         modalOverlayRef.current &&
         modalOverlayRef.current.classList.contains("modal-overlay") &&

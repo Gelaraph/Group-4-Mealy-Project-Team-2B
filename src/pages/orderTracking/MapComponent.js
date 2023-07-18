@@ -20,14 +20,13 @@ const MapComponent = () => {
           if (iframe) {
             iframe.src = mapUrl;
           }
-          console.log({ iframe });
 
           // Place an icon on the map at the user's location
-          const marker = new window.google.maps.Marker({
-            position: { lat: latitude, lng: longitude },
-            map: new window.google.maps.Map(iframe),
-            title: "Your Location",
-          });
+          // const marker = new window.google.maps.Marker({
+          //   position: { lat: latitude, lng: longitude },
+          //   map: new window.google.maps.Map(iframe),
+          //   title: "Your Location",
+          // });
         });
       }
     }
