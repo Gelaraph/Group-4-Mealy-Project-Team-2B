@@ -87,6 +87,7 @@ const Profile = () => {
       };
       await updatePersonalInfo(personalInfo, token);
       setShowSnackbar(true);
+      console.log("true");
     } catch (error) {
       console.error("Error updating personal info:", error);
     }
@@ -243,7 +244,6 @@ const Profile = () => {
 
                 <div>
                   <p>Email address</p>
-                  <h4 className={isEditing ? "greyed-out" : ""}>{email}</h4>
                   <h4 className={isEditing ? "greyed-out" : ""}>{email}</h4>
                 </div>
               </div>

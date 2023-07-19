@@ -89,9 +89,7 @@ const Footer = () => {
                   isLandingPage ? "disabled" : ""
                 }`}
                 disabled={isLandingPage}
-                onClick={() => {
-                  setShowLogoutModal(true);
-                }}>
+                onClick={() => setShowLogoutModal(true)}>
                 Logout
               </button>
             </li>

@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./uniqueAttribute.module.css";
 import vissionImg from "./vision.webp";
-import LoyaltyImg from "./jellof.jpg";
 import subheadingStyles from "./About.module.css";
 import headingStyles from "./aboutTop.module.css";
+import LoyaltyImg from "./jellof.jpg";
 
 const UniqueAttribute = () => (
   <div className={styles.vision}>
