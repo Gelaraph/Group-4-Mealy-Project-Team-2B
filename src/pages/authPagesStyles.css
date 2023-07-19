@@ -253,6 +253,8 @@ button {
 
 .sign-in-validation-div {
   width: 100% !important;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (max-width: 1100px) {

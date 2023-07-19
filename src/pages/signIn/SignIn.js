@@ -17,6 +17,8 @@ import "../authPagesStyles.css";
 
 const SignIn = () => {
   const [requestSuccess, setRequestSuccess] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
 
@@ -25,25 +27,26 @@ const SignIn = () => {
     // state: { isVerified },
   } = Auth();
 
-  const {
-    email,
-    setEmail,
-    emailError,
-    validateEmail,
-    password,
-    setPassword,
-    passwordError,
-    setEmailError,
-    setPasswordError,
-  } = useContext(FormValidationContext);
+  const { email, setEmail, emailError, validateEmail, setEmailError } =
+    useContext(FormValidationContext);
 
   const { signIn, isLoading, error } = UseAuth();
   const { signInWithGoogle } = UseGoogleSignIn();
 
+  const validatePhoneNumber = () => {
+    if (!password) {
+      setPasswordError("Phone number is required.");
+      return false;
+    }
+    setPasswordError("");
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const isEmailValid = validateEmail();
-    if (isEmailValid) {
+    const isPhoneNumberValid = validatePhoneNumber();
+    if (isEmailValid && isPhoneNumberValid) {
       signIn(email, password).then((response) => {
         // if the user gets an errorr for invalid  login credentials
         if (typeof response !== "string") {
@@ -155,6 +158,10 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div className="validation-error-div sign-in-validation-div">
+                {passwordError && (
+                  <span className="validation-error">{passwordError}</span>
+                )}
+
                 <a href="/forgot-password">
                   <span className="forgot-password-link validation-error">
                     Forgot password?

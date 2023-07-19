@@ -33,14 +33,18 @@ export const ProtectRoute = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  if (!isLoading && !isAuthenticated && isProtected(location.pathname)) {
-    navigate("/sign-in");
-  }
-  // }, [isLoading, isAuthenticated, location.pathname, navigate]);
+  useEffect(() => {
+    // console.log(location.pathname)
+    // console.log("isAuthenticated =",isAuthenticated)
+    // console.log(UNPROTECTED_PAGE_PATHS.includes(location.pathname) ? "this page is not Protected": "this page is Protected")
+  }, [location.pathname.toLowerCase()]);
 
   if (isLoading) {
-    return <Preloader />;
+    return <Preloader />; // <LoadingScreen />
+  } else if (!isAuthenticated && isProtected(location.pathname)) {
+    navigate("/sign-in");
+  } else if (isAuthenticated && isProtected(location.pathname)) {
+    navigate("/auth-user");
   }
 
   return children;
