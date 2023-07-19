@@ -31,7 +31,7 @@ const SignIn = () => {
 
   const validatePhoneNumber = () => {
     if (!password) {
-      setPasswordError("Phone number is required.");
+      setPasswordError("Password is required.");
       return false;
     }
     setPasswordError("");
