@@ -69,7 +69,7 @@ const ValidationProvider = ({ children }) => {
 
   const validateName = () => {
     if (name.trim() === "") {
-      setNameError("First Name is required.");
+      setNameError("Name is required.");
       return false;
     }
     setNameError("");
