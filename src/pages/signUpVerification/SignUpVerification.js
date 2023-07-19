@@ -14,6 +14,7 @@ const SignUpVerification = () => {
   const [verificationCode, setVerificationCode] = useState("");
   useState(false);
   const [requestSuccess, setRequestSuccess] = useState("");
+  const [emptyInput, setEmptyInput] = useState("");
 
   const { isLoading, error, verifyCode } = useVerifyCode();
   // const {
@@ -24,9 +25,13 @@ const SignUpVerification = () => {
 
   const handleVerification = async (e) => {
     e.preventDefault();
-    verifyCode({ verificationCode }).then((result) => {
-      setRequestSuccess(result);
-    });
+    if (verificationCode.length === 0) {
+      setEmptyInput("Input cannot be left empty");
+    } else {
+      verifyCode({ verificationCode }).then((result) => {
+        setRequestSuccess(result);
+      });
+    }
   };
 
   useEffect(() => {
@@ -60,13 +65,10 @@ const SignUpVerification = () => {
                   value={verificationCode}
                   onChange={(e) => setVerificationCode(e.target.value)}
                 />
-                {verificationCode.length === 0 ? (
-                  <div className="endpoint-error">
-                    Input cannot be left empty
-                  </div>
-                ) : (
-                  error && <div className="endpoint-error">{error}</div>
+                {emptyInput && (
+                  <div className="endpoint-error">{emptyInput}</div>
                 )}
+                {error && <div className="endpoint-error">{error}</div>}
                 <Button type="submit" className="input-width form-btn">
                   {isLoading ? "Verifying..." : "Verify"}
                 </Button>

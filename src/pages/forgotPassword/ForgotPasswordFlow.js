@@ -106,7 +106,6 @@ const ForgotPasswordFlow = () => {
         setIsLoading(false);
       });
   };
-  console.log({ resetPasswordToken });
 
   const handlePasswordSubmit = (password, confirmPassword) => {
     setError("");

@@ -39,17 +39,16 @@ form {
   position: relative;
 }
 
-.title {
+.contact-form .title {
   color: rgb(250, 90, 0);
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
-  margin-bottom: 0.7rem;
+  margin-bottom: 1rem;
 }
 
 .input-container {
   position: relative;
-  margin: 1rem 0;
 }
 
 .contact-input {
@@ -112,6 +111,7 @@ textarea.input {
   margin: 0 auto;
   align-items: center;
   justify-content: center;
+  margin-top: 1em;
 }
 .contact-send-div {
   align-items: center;

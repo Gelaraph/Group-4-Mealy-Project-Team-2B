@@ -29,12 +29,12 @@ const FoodCarousel = ({ numCards }) => {
     updateCardWidth();
     updatePageState();
 
-    window.addEventListener("resize", updateCardWidth);
-    containerRef.current.addEventListener("scroll", updatePageState);
+    // window.addEventListener("resize", updateCardWidth);
+    // containerRef.current.addEventListener("scroll", updatePageState);
 
     return () => {
-      window.removeEventListener("resize", updateCardWidth);
-      containerRef.current.removeEventListener("scroll", updatePageState);
+      // window.removeEventListener("resize", updateCardWidth);
+      // containerRef.current.removeEventListener("scroll", updatePageState);
     };
   }, [numCards]);
 

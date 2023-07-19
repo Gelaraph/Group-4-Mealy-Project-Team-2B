@@ -61,6 +61,7 @@ const AuthProvider = ({ children }) => {
 
   const fetchData = async () => {
     const userid = localStorage.getItem("id");
+    setIsLoading(true)
     try {
       await getCurrentUser(userid).then(async (user) => {
         if (user) {

@@ -259,7 +259,8 @@ button {
 
 .search-results-dropdown {
   position: absolute;
-  top: 50%;
+  /* top: 50%; */
+  margin-top: 0.5em;
   z-index: 999;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -271,8 +272,7 @@ button {
   font-size: 12px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  height: 300px;
   max-height: 300px;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -286,6 +286,7 @@ button {
 .product-search-item-card {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   padding: 10px;
+  height: 100px;
 }
 .google-map-div {
   width: 100%;

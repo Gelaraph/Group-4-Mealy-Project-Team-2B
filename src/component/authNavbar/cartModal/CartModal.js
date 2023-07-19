@@ -21,7 +21,8 @@ const CartModal = ({ open, onClose }) => {
         {isEmpty && <EmptyCart />}
         {!isEmpty && (
           <div className="mid-cart">
-            <div className="cart flex extras-scroll">
+            {/* <div className="cart flex extras-scroll"> */}
+            <div className="cart-scroll">
               {items.map((item) => (
                 <div className="food flex" key={item.createdAt}>
                   <div className="price flex">
@@ -56,6 +57,7 @@ const CartModal = ({ open, onClose }) => {
                 </div>
               ))}
             </div>
+            {/* </div> */}
 
             <div className="cart-modal-btn flex">
               <a href="/checkout">
@@ -117,16 +119,21 @@ const Wrapper = styled.div`
   flex-flow: column;
   align-items: flex-start;
   padding-top: 1em;
-  .cart {
-    padding-top: 3.5em;
+
+  .cart-scroll {
+    max-height: 200px;
+    overflow-y: scroll;
     width: 100%;
-    padding-bottom: 1em;
-    display: flex;
-    padding-right: 0.5em;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    scroll-behavior: smooth;
+    > div {
+      margin-bottom: 1em;
+    }
   }
+
+  .cart-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
   .food {
     width: 100%;
   }

@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+/* eslint-disable consistent-return */
+import { useEffect, useState } from "react";
 import { useLocation, Outlet, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Auth } from "../utilities/auth";
+import Preloader from "../component/Preloader/Preloader";
 
 const UNPROTECTED_PAGE_PATHS = [
   "/",
@@ -31,24 +33,17 @@ export const ProtectRoute = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // console.log(location.pathname)
-    // console.log("isAuthenticated =",isAuthenticated)
-    // console.log(UNPROTECTED_PAGE_PATHS.includes(location.pathname) ? "this page is not Protected": "this page is Protected")
-  }, [location.pathname.toLowerCase()]);
-
-  if (isLoading) {
-    return <div>LOADING....</div>; // <LoadingScreen />
-  } else if (isAuthenticated && isUnprotected(location.pathname)) {
-    navigate("/auth-user");
-  } else if (isAuthenticated && isProtected(location.pathname)) {
-    // history("/auth-user")
-    return children;
-  } else if (!isAuthenticated && isProtected(location.pathname)) {
+  // useEffect(() => {
+  if (!isLoading && !isAuthenticated && isProtected(location.pathname)) {
     navigate("/sign-in");
   }
+  // }, [isLoading, isAuthenticated, location.pathname, navigate]);
 
-  return children ? children : <Outlet />;
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  return children;
 };
 
 ProtectRoute.propTypes = {

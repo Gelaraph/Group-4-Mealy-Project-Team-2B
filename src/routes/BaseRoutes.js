@@ -2,6 +2,7 @@ import { useEffect, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { setAuthToken } from "../utilities/rest";
 import "../App.css";
+import { ProtectRoute } from "./ProtectRoute";
 
 const Home = lazy(() => import("../pages/home/Home"));
 const VerifyEmail = lazy(() => import("../pages/forgotPassword/VerifyEmail"));
@@ -21,8 +22,8 @@ const ResetPassword = lazy(() =>
 const ResturantDashboard = lazy(() =>
   import("../component/mealDashboard/ResturantDashboard"),
 );
-const GuestHomePage = lazy(() => import("../pages/home/AuthHomePage"));
-const AuthHomePage = lazy(() => import("../pages/home/Home"));
+const GuestHomePage = lazy(() => import("../pages/home/GuestHomePage"));
+const AuthHomePage = lazy(() => import("../pages/home/AuthHomePage"));
 const SignIn = lazy(() => import("../pages/signIn/SignIn"));
 const PaymentCheckout = lazy(() =>
   import("../pages/paymentCheckout/PaymentCheckout"),

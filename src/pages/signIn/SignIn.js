@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import apple from "../../assets/images/apple 1.svg";
 import google from "../../assets/images/google 1.svg";
 import facebook from "../../assets/images/facebook 1.svg";
@@ -12,10 +13,12 @@ import UseGoogleSignIn from "../../hooks/useGoogleSignIn";
 import UseAuth from "../../hooks/useAuth";
 import { AuthDispatch, Auth } from "../../utilities/auth";
 import { setAuthToken } from "../../utilities/rest";
-import "../authPagesStyles.css"
+import "../authPagesStyles.css";
 
 const SignIn = () => {
   const [requestSuccess, setRequestSuccess] = useState("");
+
+  const navigate = useNavigate();
 
   const {
     dispatch,
@@ -45,6 +48,7 @@ const SignIn = () => {
         // if the user gets an errorr for invalid  login credentials
         if (typeof response !== "string") {
           setRequestSuccess(response);
+          navigate("/auth-user");
           setEmailError("");
           setPasswordError("");
           setEmail("");

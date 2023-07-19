@@ -30,7 +30,7 @@ const LogoutModal = () => {
 
   return (
     <div className="logout-content-div">
-      <p>you can always log back in at any time.</p>
+      <p>You can always log back in at any time.</p>
       <div className="button-div">
         <Button className="logout-btn" type="submit" onClick={() => logout()}>
           Logout

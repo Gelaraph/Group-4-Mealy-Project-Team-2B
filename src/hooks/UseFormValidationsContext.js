@@ -25,6 +25,22 @@ const ValidationProvider = ({ children }) => {
   const [agreeChecked, setAgreeChecked] = useState(false);
   const [agreeCheckedError, setAgreeCheckedError] = useState("");
 
+  const [message, setMessage] = useState("");
+  const [messageError, setMessageError] = useState("");
+
+  const validateMessage = () => {
+    if (message.trim() === "") {
+      setMessageError("Message cannot be empty.");
+      return false;
+    } else if (message.length < 10) {
+      setMessageError("Message should be at least 10 characters long.");
+      return false;
+    }
+
+    setMessageError("");
+    return true;
+  };
+
   const validateEmail = () => {
     if (!email) {
       setEmailError("Email is required.");
@@ -137,6 +153,11 @@ const ValidationProvider = ({ children }) => {
       agreeCheckedError,
       setAgreeCheckedError,
       validateAgreeChecked,
+      message,
+      setMessage,
+      setMessageError,
+      messageError,
+      validateMessage,
     }),
     [
       email,
@@ -172,6 +193,11 @@ const ValidationProvider = ({ children }) => {
       agreeCheckedError,
       setAgreeCheckedError,
       validateAgreeChecked,
+      message,
+      setMessage,
+      setMessageError,
+      messageError,
+      validateMessage,
     ],
   );
 
