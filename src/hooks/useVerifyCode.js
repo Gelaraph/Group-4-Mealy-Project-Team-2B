@@ -1,12 +1,12 @@
 import { useState } from "react";
 import rest, { setAuthToken } from "../utilities/rest";
-import { AuthDispatch, Auth } from "../utilities/auth";
+import { AuthDispatch, useAuth } from "../utilities/auth";
 
 const useVerifyCode = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { dispatch } = Auth();
+  const { dispatch } = useAuth();
 
   const verifyCode = async ({ verificationCode }) => {
     // debugger; // eslint-disable-line no-debugger

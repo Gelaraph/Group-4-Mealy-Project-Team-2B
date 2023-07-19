@@ -2,7 +2,6 @@ import { useEffect, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { setAuthToken } from "../utilities/rest";
 import "../App.css";
-import { ProtectRoute } from "./ProtectRoute";
 
 const Home = lazy(() => import("../pages/home/Home"));
 const VerifyEmail = lazy(() => import("../pages/forgotPassword/VerifyEmail"));

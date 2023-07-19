@@ -4,11 +4,11 @@ import Layout from "../../component/Layout";
 import MealCustomizationComponentWrapper from "../../component/mealCustomization/MealCustomizationComponentWrapper";
 // import HelpIcon from "../../assets/images/hero/help-icon.svg";
 import "../../component/authComp/HeroSection/heroSection.css";
-import { Auth } from "../../utilities/auth";
+import { useAuth } from "../../utilities/auth";
 import SearchInput from "./SearchInput";
 
 const AuthHomePage = () => {
-  const { state: user } = Auth();
+  const { state: user } = useAuth();
   return (
     <Layout>
       <div className="hero-page-box">

@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Auth, AuthDispatch } from "../utilities/auth";
+import { useAuth, AuthDispatch } from "../utilities/auth";
 import Button from "./Button";
 
 const LogoutModal = () => {
-  const { dispatch } = Auth();
+  const { dispatch } = useAuth();
 
   const history = useNavigate();
 

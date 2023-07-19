@@ -17,9 +17,7 @@ const SignUpVerification = () => {
   const [emptyInput, setEmptyInput] = useState("");
 
   const { isLoading, error, verifyCode } = useVerifyCode();
-  // const {
-  //   dispatch,
-  // } = Auth()
+ 
 
   const history = useNavigate();
 

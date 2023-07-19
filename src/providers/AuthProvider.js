@@ -8,7 +8,6 @@ import {
 } from "../utilities/auth";
 
 function authReducer(state, action) {
-  // console.log("action", action)
   switch (action.type) {
     case AuthDispatch.Authenticated:
     case AuthDispatch.SignIn: {
@@ -55,13 +54,12 @@ function authReducer(state, action) {
 }
 
 const AuthProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [state, dispatch] = useReducer(authReducer, { isAuthenticated: false });
-
   const fetchData = async () => {
+    setIsLoading(true);
     const userid = localStorage.getItem("id");
-    setIsLoading(true)
     try {
       await getCurrentUser(userid).then(async (user) => {
         if (user) {
@@ -95,7 +93,6 @@ const AuthProvider = ({ children }) => {
     () => ({ ...state, isLoading }),
     [state, isLoading],
   );
-  // console.log("auth state", state);
 
   return (
     <DispatchContext.Provider value={dispatch}>

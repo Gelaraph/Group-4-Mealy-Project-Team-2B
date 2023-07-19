@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apple from "../../assets/images/apple 1.svg";
 import google from "../../assets/images/google 1.svg";
@@ -11,21 +11,17 @@ import { RightSideImage } from "../authPageBgImg";
 import { FormValidationContext } from "../../hooks/UseFormValidationsContext";
 import UseGoogleSignIn from "../../hooks/useGoogleSignIn";
 import UseAuth from "../../hooks/useAuth";
-import { AuthDispatch, Auth } from "../../utilities/auth";
+import { AuthDispatch, useAuth } from "../../utilities/auth";
 import { setAuthToken } from "../../utilities/rest";
 import "../authPagesStyles.css";
 
 const SignIn = () => {
-  const [requestSuccess, setRequestSuccess] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
 
-  const {
-    dispatch,
-    // state: { isVerified },
-  } = Auth();
+  const { dispatch } = useAuth();
 
   const { email, setEmail, emailError, validateEmail, setEmailError } =
     useContext(FormValidationContext);
@@ -47,17 +43,39 @@ const SignIn = () => {
     const isEmailValid = validateEmail();
     const isPhoneNumberValid = validatePhoneNumber();
     if (isEmailValid && isPhoneNumberValid) {
-      signIn(email, password).then((response) => {
-        // if the user gets an errorr for invalid  login credentials
-        if (typeof response !== "string") {
-          setRequestSuccess(response);
-          navigate("/auth-user");
-          setEmailError("");
-          setPasswordError("");
-          setEmail("");
-          setPassword("");
-        }
-      });
+      signIn(email, password)
+        .then((response) => {
+          // if the user does not gets an errorr for invalid  login credentials
+          if (
+            response &&
+            typeof response !== "string" &&
+            response.status === 200
+          ) {
+            const currentUser = response.data?.data?.user;
+            const accessToken = response.data?.data?.user?.accessToken;
+
+            const data = { ...currentUser, accessToken };
+            // set JWT token to local
+            localStorage.setItem("token", accessToken);
+            localStorage.setItem("id", currentUser.email);
+            // set token to axios common header
+            setAuthToken(accessToken);
+            dispatch({
+              type: AuthDispatch.SignIn,
+              payload: { data },
+            });
+
+            navigate("/auth-user");
+          } else {
+            setEmailError("");
+            setPasswordError("");
+            setEmail("");
+            setPassword("");
+          }
+        })
+        .catch((err) => {
+          console.error("Error during sign-in:", err);
+        });
     }
   };
 
@@ -73,49 +91,6 @@ const SignIn = () => {
     }
     signInWithGoogle();
   };
-
-  useEffect(() => {
-    if (requestSuccess) {
-      // console.log("from sign in", requestSuccess);
-      const currentUser = requestSuccess.data?.data?.user;
-      const accessToken = requestSuccess.data?.data?.user?.accessToken;
-
-      // const accessToken = requestSuccess.data?.data?.accessToken
-      const data = { ...currentUser, accessToken };
-
-      // set JWT token to local
-      localStorage.setItem("token", accessToken);
-      localStorage.setItem("id", currentUser.email);
-      // set token to axios common header
-      setAuthToken(accessToken);
-      dispatch({
-        type: AuthDispatch.SignIn,
-        payload: { data },
-      });
-    }
-
-    // todo: if user is not verified; say they left their browser
-    // after signing up or the battery dies without inputting their verification code
-    // should they be able to get to the dashboard? if this happens and they attempt to login
-    // by standard they should be directed to the verification page and a new verification code should sent
-    // the initial code has a very limited expiry time.
-    // if (isVerified) {
-    //   const currentUser = requestSuccess.data?.data?.user
-    //   const accessToken = requestSuccess.data?.data?.accessToken
-    //   const data = {...currentUser, accessToken}
-
-    //   // set JWT token to local
-    //   localStorage.setItem("token", accessToken);
-    //   localStorage.setItem("id", currentUser.email)
-    //   // set token to axios common header
-    //   setAuthToken(accessToken);
-    //   dispatch({
-    //     type: AuthDispatch.SignIn,
-    //     payload: {data},
-    //   })
-    // }
-    // isAuthenticated && history('/sign-up-verification')
-  }, [requestSuccess]);
 
   return (
     <div className="sign-up-page">
